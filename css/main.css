@@ -1,0 +1,107 @@
+body
+{
+  margin: 0;
+  padding: 0;
+  font-size: 1.1rem;
+  background-color: #f1f1f1;
+}
+
+button, input
+{
+  font-size: 1.1rem;
+  border-radius: 9px;
+  /*height: 1.4rem;*/
+  box-sizing: border-box;
+  padding: 4px 9px;
+}
+
+:focus{
+  outline: none;
+  box-shadow: 0px 0px 3px blue;
+}
+
+.navbar {
+  padding: 10px 8px;
+  background-color: #e07c19;
+}
+
+.navbar input{
+  display: inline-block;
+  width: 9rem;
+}
+
+.navbar button{
+  display: inline-block;
+}
+
+.container{
+  padding: 15px 15px;
+}
+
+.row{
+  padding: 10px 8px;
+  margin: 5px 3px;
+  display: block;
+  text-align: center;
+  background-color: white;
+  border-color: #797979;
+  border-width: 1px;
+  border-bottom-style: solid;
+}
+
+.row .title{
+  font-weight: bold;
+  margin: 3px 0px;
+  text-align: left;
+  width: 100%;
+}
+
+.row .info{
+  margin: 3px 0px;
+  text-align: left;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.image{
+  height: 70vw;
+  width: 70vw;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center center;
+  border-radius: 20%;
+  padding: 7px;
+  margin: 15px auto;
+}
+
+@media only screen and (min-width: 768px) {
+  .container{
+    padding: 15px 70px;
+  }
+  
+  .image{
+    display: inline-block;
+    width: 20vw;
+    height: 20vw;
+    vertical-align: top;
+    margin-right: 15px;
+  }
+  
+  .array-data{
+    display: inline-block;
+    width: 70%;
+  }
+  
+  .row .title{
+    display: inline-block;
+    vertical-align: top;
+    width: 20%;
+  }
+  
+  .row .info{
+    display: inline-block;
+    vertical-align: top;
+    width: 70%;
+  }
+  
+}
