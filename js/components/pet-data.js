@@ -39,7 +39,7 @@ Vue.component('pet-arraydata',{
     }
   },
   mounted: function(){
-    getUser()
+    //app.getUser()
   },
   template: `
     <div>
@@ -93,6 +93,14 @@ Vue.component('pet-arraydatainput', {
       this.fields.forEach(function (field, index) {
         pet[field[0]] = app.$refs.arrayinput.$refs.editor[index].inputData;
       });
+      
+      var password = steem.formatter.createSuggestedPassword().substring(0,8);
+      pet['email'] = CryptoJS.AES.encrypt(pet['email'], password).toString();
+      pet['address'] = CryptoJS.AES.encrypt(pet['address'], password).toString();
+      pet['phoneNumber'] = CryptoJS.AES.encrypt(pet['phoneNumber'], password).toString();
+      pet['notes'] = CryptoJS.AES.encrypt(pet['notes'], password).toString();
+      
+      console.log('Password used in the encryption: '+password);
       console.log(pet);
 
       var json_metadata = (app.account.json_metadata && app.account.json_metadata != '') ? JSON.parse(app.account.json_metadata) : {};
@@ -108,8 +116,9 @@ Vue.component('pet-arraydatainput', {
           console.log("Error broadcasting");
         } else {
           console.log("Saved!");
+          history.pushState({index:'search'}, '', 'index.html'+document.location.search+'&key='+password);
           app.$refs.wif.toggleEdit();
-          getUser();
+          app.getUser();
         }
         console.log(err, result);
       });
@@ -118,7 +127,7 @@ Vue.component('pet-arraydatainput', {
     },
   },
   template: `
-    <div>      
+    <div class="array-datainput">      
       <div v-for="(field,key,index) in fields">
         <pet-datainput ref="editor" 
           :title="field[1]">

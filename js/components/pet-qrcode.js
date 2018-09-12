@@ -7,12 +7,13 @@ Vue.component('pet-qrcode',{
   methods: {
     showQRcode: function(){
       qrcode.makeCode(document.location.href);
+      saveFile("hello.txt","This is the content of my file :)");
     },
   },
   template: `
-    <div>
-      <button @click="showQRcode">Show QR code</button>
-      <div id="qrcode"></div>      
+    <div class="center">
+      <button @click="showQRcode" class="icon"><img src="images/qr-code.svg"></button>
+      <div id="qrcode" class="qrcode"></div>      
     </div>
   `,
 })

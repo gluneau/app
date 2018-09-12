@@ -23,7 +23,7 @@ Vue.component('pet-wif',{
   watch:{
     inputWif: function () {
       this.isInputDirty = true      
-      this.checkWif()
+      this.checkWif_debounce()
     }
   },
   methods: {
@@ -31,8 +31,8 @@ Vue.component('pet-wif',{
       this.showWifForm = !this.showWifForm
       if(!this.showWifForm) app.editing = false
       this.checkWif()
-    },
-    checkWif: _.debounce(function () {
+    },    
+    checkWif: function () {
       this.isLoading = true
       var pubWifOwner = app.account.owner.key_auths[0][0];
       var pubWifActive = app.account.active.key_auths[0][0];
@@ -66,11 +66,14 @@ Vue.component('pet-wif',{
       this.isValid = isOwnerKey || isActiveKey;// || isPostingKey;
       this.isLoading = false
       this.isInputDirty = false
+      this.showAlert = false
       if(this.isValid){
-        this.showAlert = false
         if(this.showWifForm) app.editing = true
       }
-    }, 500),
+    },
+    checkWif_debounce: _.debounce(function(){
+      this.checkWif()
+    },500),
     checkWif2: function(){
       this.checkWif()
       this.showAlert = !this.isValid
@@ -78,16 +81,19 @@ Vue.component('pet-wif',{
   },
   template: `
     <div class="wif">
-      <button @click="toggleEdit">Edit</button>
-      <div v-if="this.showWifForm">
-        <input type="password" @keyup.enter="checkWif2" v-model="inputWif" placeholder="Posting key">
-        <button @click="checkWif2">check</button>
-        <div class="valid">{{this.isValid}}</div>
-        <div v-if="this.showAlert" class="alert-box">The key is incorrect. Please insert the active o owner key</div>        
-      </div>
-      <div v-else>
-        <p> no hay nada para editar</p>
-      </div>
+      <div class="edit">
+        <button @click="toggleEdit" class="icon"><img src="images/round-create-24px.svg"></button>
+      </div>  
+      <div class="center" v-if="this.showWifForm">
+        <input type="password" 
+          @keyup.enter="checkWif2" 
+          v-model="inputWif"
+          class = "fill-button"
+          :class="{successful: isValid}"
+          placeholder="Active/Owner key">
+        <button @click="checkWif2" class="icon float-right"><img src="images/round-done-24px.svg"></button>
+        <div v-if="this.showAlert" class="alert-box"><strong>Incorrect key.</strong> Please insert the Active or Owner key</div>        
+      </div>      
     </div>
   `,
 })

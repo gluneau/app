@@ -1,3 +1,7 @@
+*{
+  box-sizing: border-box;
+}
+
 body
 {
   margin: 0;
@@ -9,11 +13,34 @@ body
 button, input
 {
   font-size: 1.1rem;
-  border-radius: 9px;
-  /*height: 1.4rem;*/
+  border-radius: 5px;
   box-sizing: border-box;
   padding: 4px 9px;
+  vertical-align: middle;
+  height: 2.7rem;
 }
+
+button{
+  background-image: linear-gradient(to bottom, #efaf3f, #e56b15);
+  border: solid 1px #e35050;
+  color: white;
+}
+
+.icon{
+  border-radius: 50px;
+  padding: 0px;
+  width: 2.7rem;
+  height: 2.7rem;
+}
+
+/*button:hover,
+button:focus {
+  background-image: linear-gradient(to bottom, #2fcbf2, #159be2);
+}
+
+button:active {
+  background-image: linear-gradient(to bottom, #2fcbf7, #159ce5);
+}*/
 
 :focus{
   outline: none;
@@ -22,7 +49,7 @@ button, input
 
 .navbar {
   padding: 10px 8px;
-  background-color: #e07c19;
+  background-image: linear-gradient(to bottom, #ffcd77, #e56b15);
 }
 
 .navbar input{
@@ -42,6 +69,7 @@ button, input
   padding: 10px 8px;
   margin: 5px 3px;
   display: block;
+  width: 100%;
   text-align: center;
   background-color: white;
   border-color: #797979;
@@ -53,12 +81,14 @@ button, input
   font-weight: bold;
   margin: 3px 0px;
   text-align: left;
+  vertical-align: middle;
   width: 100%;
 }
 
 .row .info{
   margin: 3px 0px;
   text-align: left;
+  vertical-align: middle;
   width: 100%;
   overflow-x: hidden;
 }
@@ -72,6 +102,62 @@ button, input
   border-radius: 20%;
   padding: 7px;
   margin: 15px auto;
+}
+
+.array-datainput{
+  width: 100%;
+  text-align: center;
+}
+
+.array-datainput button{
+  width: 35%;
+  margin: 15px auto;  
+}
+
+.edit{
+  margin: 15px 0px;
+  text-align: right;
+}
+
+.center{
+  text-align: center;
+  margin: 15px auto;
+  width: 100%;
+}
+
+.fill-button{
+  width: calc(100% - 3.5rem);
+}
+
+.float-right{
+  float:right;
+}
+
+.center img{
+  margin: auto;
+}
+
+.qrcode{
+  margin: 20px auto;
+  width: 80%;
+  height: auto;
+  text-align: center;
+}
+
+.alert-box{  
+  border: solid 1px #ebccd1;
+  background-color: #f2dede;
+  border-radius: 5px;
+  width: 100%;
+  padding: 13px;
+  margin: 4px 2px;
+  box-sizing: border-box;
+  text-align:left;
+  color: #a94442;
+}
+
+.successful{
+  background-color: lightgreen;
 }
 
 @media only screen and (min-width: 768px) {
@@ -89,18 +175,16 @@ button, input
   
   .array-data{
     display: inline-block;
-    width: 70%;
+    width: calc(100% - 20vw - 25px);
   }
   
   .row .title{
     display: inline-block;
-    vertical-align: top;
     width: 20%;
   }
   
   .row .info{
     display: inline-block;
-    vertical-align: top;
     width: 70%;
   }
   
