@@ -7,6 +7,16 @@ function getQuery(){
   return JSON.parse( params );  
 }
 
+function setQuery(json){
+  var params = JSON.stringify(json);
+  params = '?' + params
+    .replace( /\",\"/gi, "&")
+    .replace( /\":\"/gi, "=")
+    .replace( /\{\"/gi , "")
+    .replace( /\"\}/gi , "");
+  history.pushState({index:'search'}, '', 'index.html'+params);
+}
+
 function saveFile(filename, text) {
   var element = document.createElement('a');
   element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));

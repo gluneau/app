@@ -94,14 +94,38 @@ button:active {
 }
 
 .image{
-  height: 70vw;
-  width: 70vw;
   overflow: hidden;
   background-size: cover;
   background-position: center center;
+  padding: 7px;  
+}
+
+.pet{
+  height: 70vw;
+  width: 70vw;
   border-radius: 20%;
-  padding: 7px;
   margin: 15px auto;
+}
+
+.user{
+  height: 4rem;
+  width: 4rem;
+  border-radius: 50%;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+.user-label{
+  font-size: 1.5rem;
+  display: inline-block;
+  font-weight: bold;  
+}
+
+.user-container{
+  padding: 15px 0px;
+  background-image: linear-gradient(to bottom, #ffffff, #d8d8d8);
+  text-align:center;
 }
 
 .array-datainput{
@@ -112,6 +136,17 @@ button:active {
 .array-datainput button{
   width: 35%;
   margin: 15px auto;  
+}
+
+.info{
+  margin: 30px 5px 15px 15px;
+  text-align: left;
+}
+
+.info .title{
+  font-weight: bold;
+  font-size: 1.3rem;
+  margin-bottom: 5px;
 }
 
 .edit{
@@ -137,11 +172,13 @@ button:active {
   margin: auto;
 }
 
-.qrcode{
-  margin: 20px auto;
-  width: 80%;
-  height: auto;
-  text-align: center;
+#qrcode{
+  width: 100%;
+  padding: 1.5rem;
+}
+
+#qrcode img{
+  max-width: 100%;
 }
 
 .alert-box{  
@@ -160,15 +197,43 @@ button:active {
   background-color: lightgreen;
 }
 
+.footnote{
+  font-size: 0.9rem;
+  text-align: left;
+  margin: 3px 10px;
+  display: block;
+}
+
+#qrtag{}
+
+.face{
+  background-image: linear-gradient(-45deg, #949494, #eaeaea);
+  border-radius: 50%;
+  width: 10rem;
+  height: 10rem;
+  padding: 1rem;
+  display: inline-block;
+  margin: 20px;
+  vertical-align: middle;
+}
+
+.face img{
+  width: 100%;
+  display: inline-block;
+}
+
 @media only screen and (min-width: 768px) {
   .container{
     padding: 15px 70px;
   }
   
   .image{
-    display: inline-block;
+    display: inline-block;    
+  }
+  
+  .pet{
     width: 20vw;
-    height: 20vw;
+    height: 20vw;    
     vertical-align: top;
     margin-right: 15px;
   }

@@ -9,46 +9,49 @@ Vue.component('pet-data', {
 })
 
 Vue.component('pet-arraydata',{
+  props: {
+    pet: Object,
+  },
   data: function () {
     return {
-      fields: [
-        ['petType', 'Pet Type'],
-        ['name', 'Name'],
-        ['image', 'Image URL'],
-        ['breed', 'Breed'],
-        ['color', 'Color'],
-        ['birthday', 'Birthday'],
-        ['email', 'Email'],
-        ['address', 'Address'],
-        ['phoneNumber', 'Phone number'],
-        ['notes', 'Notes'],
-      ],
-      pet: {
-        petType: '',
-        name: '',
-        image: '',
-        breed: '',
-        color: '',
-        birthday: '',
-        email: '',
-        address: '',
-        phonenumber: '',
-        notes: '',
+      fields: {
+        petType: 'Pet Type',
+        name: 'Name',
+        image: 'Image URL',
+        breed: 'Breed',
+        color: 'Color',
+        birthday: 'Birthday',
+        email: 'Email',
+        address: 'Address',
+        phoneNumber: 'Phone number',
+        notes: 'Notes',
       },
-      imageExists: false,
+      pet_public: this.pet.public,
+      pet_private: this.pet.private,
     }
   },
-  mounted: function(){
-    //app.getUser()
+  watch: {
+    pet: function(newVal, oldVal){
+      this.pet_public = this.pet.public;
+      this.pet_private = this.pet.private;
+    }
+  },
+  computed: {
+    imageExists: function(){
+      return (this.pet.public.image && this.pet.public.image != '');
+    }
   },
   template: `
     <div>
-      <div v-if="imageExists" class="image" :style="'background-image: url('+pet.image+');'">      
+      <div v-if="imageExists" class="image pet" :style="'background-image: url('+pet_public.image+');'">
       </div>
       <div class="array-data">
-        <div v-for="(item,key,index) in pet">
-          <pet-data :title="fields[index][1]" :data="item"></pet-data>
-        </div>      
+        <div v-for="(item,key,index) in pet_public">
+          <pet-data :title="fields[key]" :data="item"></pet-data>
+        </div>
+        <div v-for="(item,key,index) in pet_private">
+          <pet-data :title="fields[key]" :data="item"></pet-data>
+        </div>
       </div>
     </div>
   `, 
@@ -56,10 +59,17 @@ Vue.component('pet-arraydata',{
 
 
 Vue.component('pet-datainput', {
-  props: ['title'],
+  props: {
+    title: String,
+    data: {
+      type: String,
+      required: false,
+      default: ''
+    },
+  },  
   data: function () {
     return {
-      inputData: '',
+      inputData: this.data,
     }
   },
   template: `
@@ -71,41 +81,72 @@ Vue.component('pet-datainput', {
 })
 
 Vue.component('pet-arraydatainput', {
+  props: {
+    pet_init:{
+      type: Object,
+      required: false,
+      default:{
+        public:{
+          petType: '',
+          name: '',
+          image: '',
+          breed: '',
+          color: '',
+          birthday: '',
+        },
+        private:{
+          email: '',
+          address: '',
+          phoneNumber: '',
+          notes: '',
+        },
+      }
+    },
+  },
   data: function () {
     return {
-      fields: [
-        ['petType', 'Pet Type'],
-        ['name', 'Name'],
-        ['image', 'Image URL'],
-        ['breed', 'Breed'],
-        ['color', 'Color'],
-        ['birthday', 'Birthday'],
-        ['email', 'Email'],
-        ['address', 'Address'],
-        ['phoneNumber', 'Phone number'],
-        ['notes', 'Notes'],
-      ],
-    }
+      fields_public: [
+        ['petType','Pet Type'],
+        ['name','Name'],
+        ['image','Image URL'],
+        ['breed','Breed'],
+        ['color','Color'],
+        ['birthday','Birthday'],
+        ],
+      fields_private: [
+        ['email','Email'],
+        ['address','Address'],
+        ['phoneNumber','Phone number'],
+        ['notes','Notes'],
+       ],
+      pet: this.pet_init,
+    }    
+  },
+  computed: {
+    /*imageExists: function(){
+      console.log("computed");
+      return (this.pet.public.image && this.pet.public.image != '');
+    }*/
   },
   methods: {
     save: function () {
-      var pet = {};
-      this.fields.forEach(function (field, index) {
-        pet[field[0]] = app.$refs.arrayinput.$refs.editor[index].inputData;
+      this.fields_public.forEach(function (field, index) {
+        this.pet.public[field[0]] = this.$refs.editor_public[index].inputData;
       });
       
-      var password = steem.formatter.createSuggestedPassword().substring(0,8);
-      pet['email'] = CryptoJS.AES.encrypt(pet['email'], password).toString();
-      pet['address'] = CryptoJS.AES.encrypt(pet['address'], password).toString();
-      pet['phoneNumber'] = CryptoJS.AES.encrypt(pet['phoneNumber'], password).toString();
-      pet['notes'] = CryptoJS.AES.encrypt(pet['notes'], password).toString();
+      var password = steem.formatter.createSuggestedPassword().substring(0,10);
+      
+      this.fields_private.forEach(function (field, index) {
+        var private_data = this.$refs.editor_private[index].inputData;
+        this.pet.private[field[0]] = CryptoJS.AES.encrypt(private_data, password).toString();
+      });
       
       console.log('Password used in the encryption: '+password);
-      console.log(pet);
+      console.log(this.pet);
 
       var json_metadata = (app.account.json_metadata && app.account.json_metadata != '') ? JSON.parse(app.account.json_metadata) : {};
-      json_metadata.pets = [];
-      json_metadata.pets[0] = pet;
+      json_metadata.pets = []; //TODO: a user could have several pets
+      json_metadata.pets[0] = this.pet;
 
       console.log(json_metadata);
       steem.broadcast.accountUpdate(app.$refs.wif.inputWif,
@@ -116,7 +157,9 @@ Vue.component('pet-arraydatainput', {
           console.log("Error broadcasting");
         } else {
           console.log("Saved!");
-          history.pushState({index:'search'}, '', 'index.html'+document.location.search+'&key='+password);
+          var query = getQuery();
+          query.key = password;
+          setQuery(query);
           app.$refs.wif.toggleEdit();
           app.getUser();
         }
@@ -127,13 +170,26 @@ Vue.component('pet-arraydatainput', {
     },
   },
   template: `
-    <div class="array-datainput">      
-      <div v-for="(field,key,index) in fields">
-        <pet-datainput ref="editor" 
-          :title="field[1]">
-        </pet-datainput>
+    <div>
+      <!--<div v-if="imageExists" class="image pet" :style="'background-image: url('+pet_public.image+');'">-->
+      <!--</div>-->
+      <div class="array-datainput">      
+        <div v-for="(field,key,index) in fields_public">
+          <pet-datainput ref="editor_public" 
+            :title="field[1]" :data="pet.public[field[0]]">
+          </pet-datainput>
+        </div>
+        <div class="info">
+          <div class="title">Private data</div>
+          <div>The following data will be encrypted, meaning that it will only be visible by scanning the QR Tag.</div>
+        </div>
+        <div v-for="(field,key,index) in fields_private">
+          <pet-datainput ref="editor_private" 
+            :title="field[1]" :data="pet.private[field[0]]">
+          </pet-datainput>
+        </div>
+        <button @click="save">save</div>
       </div>
-      <button @click="save">save</div>
-    </div>
+    </div>  
   `, 
 })

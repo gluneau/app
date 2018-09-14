@@ -2,6 +2,7 @@ Vue.component('pet-wif',{
   data: function(){
     return {
       showWifForm: false,
+      showEditButton: true,
       inputWif: '',      
       isValid: false,
       isInputDirty: false,
@@ -30,7 +31,7 @@ Vue.component('pet-wif',{
     toggleEdit: function(){
       this.showWifForm = !this.showWifForm
       if(!this.showWifForm) app.editing = false
-      this.checkWif()
+      this.checkWif()      
     },    
     checkWif: function () {
       this.isLoading = true
@@ -81,7 +82,7 @@ Vue.component('pet-wif',{
   },
   template: `
     <div class="wif">
-      <div class="edit">
+      <div v-if="this.showEditButton" class="edit">
         <button @click="toggleEdit" class="icon"><img src="images/round-create-24px.svg"></button>
       </div>  
       <div class="center" v-if="this.showWifForm">
@@ -92,6 +93,7 @@ Vue.component('pet-wif',{
           :class="{successful: isValid}"
           placeholder="Active/Owner key">
         <button @click="checkWif2" class="icon float-right"><img src="images/round-done-24px.svg"></button>
+        <div class="footnote">Note: This key is not saved/stored or sent anywhere. You can view the page source to verify</div>
         <div v-if="this.showAlert" class="alert-box"><strong>Incorrect key.</strong> Please insert the Active or Owner key</div>        
       </div>      
     </div>
