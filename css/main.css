@@ -2,9 +2,15 @@
   box-sizing: border-box;
 }
 
+html {
+  min-height: 100%;
+  position: relative;
+}
+
 body
 {
   margin: 0;
+  margin-bottom: 4rem;
   padding: 0;
   font-size: 1.1rem;
   background-color: #f1f1f1;
@@ -25,6 +31,17 @@ button{
   background-image: linear-gradient(to bottom, #efaf3f, #e56b15);
   border: solid 1px #e35050;
   color: white;
+}
+
+footer{
+  background-color: #828282;
+  color: white;
+  width: 100%;
+  text-align: center;
+  margin: 0px;
+  padding: 20px;
+  position: absolute;
+  bottom: 0;
 }
 
 .icon{
@@ -168,6 +185,16 @@ button:active {
 
 .monospace{
   font-family: monospace;
+}
+
+.text-huge{
+  font-size: 6rem;
+  margin-bottom: 15px; 
+}
+
+.text-big{
+  font-size: 2.5rem;
+  margin-bottom: 15px;
 }
 
 .fill-button{

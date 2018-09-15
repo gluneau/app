@@ -11,32 +11,7 @@
     <!--<script src="./js/html2canvas.min.js"></script>-->
 </head>
 <body>
-    <div id="app-steempet">
-        <pet-navbar></pet-navbar>
-        <pet-userinfo :name="this.account.name" :valid="this.validAccount"></pet-userinfo>
-        <div class="container">
-            <div v-if="hasPet">
-                <div class="right">
-                    <button @click="toggleEdit" class="icon"><img src="images/round-create-24px.svg"></button>
-                </div>
-                <div v-if="editing">
-                    <pet-create :pet_init="this.pet"></pet-create>
-                </div>
-                <div v-else>
-                    <pet-arraydata :pet="this.pet"></pet-arraydata>                
-                    <pet-qrcode :haspet="this.hasPet" :haskey="this.hasKey" :validkey="this.validKey"></pet-qrcode>
-                </div>
-            </div>
-            <div v-else>
-                <div class="right">
-                    <button @click="toggleNew" class="icon"><img src="images/round-add-24px.svg"></button>
-                </div>
-                <div v-if="newPet">
-                    <pet-create :pet_init="this.pet"></pet-create>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div id="app-steempet"></div>
     <script src="./js/steem.js?1"></script>
     <script src="./js/utils.js?1"></script>
     <script src="./js/components/pet-navbar.js?1"></script>
