@@ -4,13 +4,6 @@ Vue.component('pet-qrcode', {
     haskey: Boolean,
     validkey: Boolean,
   },
-  data: function () {
-    return {
-      /*hasPet: false,
-      hasKey: false,
-      validKey: false,*/
-    }
-  },
   mounted: function () {
     this.showQRcode();
   },

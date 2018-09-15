@@ -1,20 +1,40 @@
-function getQuery(){
-  if(document.location.search.length == 0) return '';
+const EMPTY_PET = {
+  public: {
+    petType: '',
+    name: '',
+    image: '',
+    breed: '',
+    color: '',
+    birthday: '',
+  },
+  private: {
+    email: '',
+    address: '',
+    phoneNumber: '',
+    notes: '',
+  },
+};
+
+function getQuery() {
+  if (document.location.search.length == 0)
+    return '';
   var params = document.location.search.substr(1);
-  params = "{\"" + 
-    params.replace( /\&/gi, "\",\"" ).replace( /\=/gi, "\":\"" ) +
+  params = "{\"" +
+    params.replace(/\&/gi, "\",\"").replace(/\=/gi, "\":\"") +
     "\"}";
-  return JSON.parse( params );  
+  return JSON.parse(params);
 }
 
-function setQuery(json){
+function setQuery(json) {
   var params = JSON.stringify(json);
   params = '?' + params
-    .replace( /\",\"/gi, "&")
-    .replace( /\":\"/gi, "=")
-    .replace( /\{\"/gi , "")
-    .replace( /\"\}/gi , "");
-  history.pushState({index:'search'}, '', 'index.html'+params);
+    .replace(/\",\"/gi, "&")
+    .replace(/\":\"/gi, "=")
+    .replace(/\{\"/gi, "")
+    .replace(/\"\}/gi, "");
+  history.pushState({
+    index: 'search'
+  }, '', 'index.html' + params);
 }
 
 function saveFile(filename, text) {

@@ -13,21 +13,27 @@
 <body>
     <div id="app-steempet">
         <pet-navbar></pet-navbar>
-        <pet-userinfo ref="userinfo"></pet-userinfo>
+        <pet-userinfo :name="this.account.name" :valid="this.validAccount"></pet-userinfo>
         <div class="container">
-            <pet-wif ref="wif"></pet-wif>
-            <div v-if="!hasPet">
-              <button @click="toggleNew" class="icon"><img src="images/round-search-24px.svg"></button>
-              <div v-if="newPet">
-                <pet-arraydatainput></pet-arraydatainput>
-              </div>
-            </div>
-            <div v-if="editing">
-                <pet-arraydatainput :pet_init="this.pet"></pet-arraydatainput>
+            <div v-if="hasPet">
+                <div class="right">
+                    <button @click="toggleEdit" class="icon"><img src="images/round-create-24px.svg"></button>
+                </div>
+                <div v-if="editing">
+                    <pet-create :pet_init="this.pet"></pet-create>
+                </div>
+                <div v-else>
+                    <pet-arraydata :pet="this.pet"></pet-arraydata>                
+                    <pet-qrcode :haspet="this.hasPet" :haskey="this.hasKey" :validkey="this.validKey"></pet-qrcode>
+                </div>
             </div>
             <div v-else>
-                <pet-arraydata :pet="this.pet"></pet-arraydata>                
-                <pet-qrcode :haspet="this.tit" :haskey="this.hasKey" :validkey="this.validKey"></pet-qrcode>
+                <div class="right">
+                    <button @click="toggleNew" class="icon"><img src="images/round-add-24px.svg"></button>
+                </div>
+                <div v-if="newPet">
+                    <pet-create :pet_init="this.pet"></pet-create>
+                </div>
             </div>
         </div>
     </div>
@@ -36,6 +42,7 @@
     <script src="./js/components/pet-navbar.js?1"></script>
     <script src="./js/components/pet-userinfo.js?1"></script>
     <script src="./js/components/pet-data.js?1"></script>
+    <script src="./js/components/pet-create.js?1"></script>
     <script src="./js/components/pet-wif.js?1"></script>
     <script src="./js/components/pet-qrcode.js?1"></script>
     <script src="./js/steempet.js?1"></script>

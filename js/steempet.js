@@ -2,16 +2,14 @@
 const app = new Vue({
     el: '#app-steempet',
     data: {
-      account: {},
+      account: {name:''},
       validAccount: false,      
       validKey: false,
       hasPet: false,
       hasKey: false,      
       editing: false,
       newPet: false,
-      pet: {public:{}, private:{}},
-      title: 'init title',
-      tit: false,
+      pet: EMPTY_PET,
     },
     mounted: function () {
       steem.api.setOptions({
@@ -20,6 +18,9 @@ const app = new Vue({
       this.getUser();
     },
     methods: {
+      toggleEdit: function(){
+        this.editing = !this.editing;        
+      },    
       toggleNew: function(){
         this.newPet = !this.newPet;
       },
@@ -63,16 +64,12 @@ const app = new Vue({
                   app.hasKey = false;
                 }
                 app.pet = json_metadata.pets[0];
-                app.$refs.wif.showEditButton = true;
+                app.editing = false;
               } else {
                 console.log('@'+app.account.name + " does not have pets");
                 app.hasPet = false;
                 app.pet = {public:{}, private:{}};
-                app.$refs.wif.showEditButton = false;
               }
-
-              app.$refs.userinfo.name = app.account.name;
-              app.$refs.wif.checkWif()
             }
           });
         } else {
