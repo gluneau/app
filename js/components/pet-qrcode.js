@@ -37,7 +37,7 @@ Vue.component('pet-qrcode', {
         <div class="face">
           <img src="images/steem.svg">
         </div>
-        <div class="center"><a href={{document.location.href}}>{{document.location.href}}</a></div>
+        <div class="center monospace"><a href={{document.location.href}}>{{document.location.href}}</a></div>
       </div>
       <div v-else-if="this.haspet">
         <div class="alert-box">Please provide the <strong>password to decrypt</strong> the sensitive data</div>
