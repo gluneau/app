@@ -1,7 +1,6 @@
 Vue.component('pet-wif',{
   data: function(){
     return {
-      showWifForm: false,
       inputWif: '',      
       isValid: false,
       isInputDirty: false,
@@ -27,11 +26,6 @@ Vue.component('pet-wif',{
     }
   },
   methods: {
-    toggleEdit: function(){
-      this.showWifForm = !this.showWifForm
-      if(!this.showWifForm) app.editing = false
-      this.checkWif()
-    },    
     checkWif: function () {
       this.isLoading = true
       var pubWifOwner = app.account.owner.key_auths[0][0];
@@ -67,9 +61,6 @@ Vue.component('pet-wif',{
       this.isLoading = false
       this.isInputDirty = false
       this.showAlert = false
-      if(this.isValid){
-        if(this.showWifForm) app.editing = true
-      }
     },
     checkWif_debounce: _.debounce(function(){
       this.checkWif()
@@ -80,20 +71,16 @@ Vue.component('pet-wif',{
     }
   },
   template: `
-    <div class="wif">
-      <div class="edit">
-        <button @click="toggleEdit" class="icon"><img src="images/round-create-24px.svg"></button>
-      </div>  
-      <div class="center" v-if="this.showWifForm">
-        <input type="password" 
-          @keyup.enter="checkWif2" 
-          v-model="inputWif"
-          class = "fill-button"
-          :class="{successful: isValid}"
-          placeholder="Active/Owner key">
-        <button @click="checkWif2" class="icon float-right"><img src="images/round-done-24px.svg"></button>
-        <div v-if="this.showAlert" class="alert-box"><strong>Incorrect key.</strong> Please insert the Active or Owner key</div>        
-      </div>      
+    <div class="center">
+      <input type="password" 
+        @keyup.enter="checkWif2" 
+        v-model="inputWif"
+        class = "fill-button"
+        :class="{successful: isValid}"
+        placeholder="Active/Owner key">
+      <button @click="checkWif2" class="icon float-right"><img src="images/round-done-24px.svg"></button>
+      <div class="footnote">Note: This key is not saved/stored or sent anywhere. You can view the page source to verify</div>
+      <div v-if="this.showAlert" class="alert-box"><strong>Incorrect key.</strong> Please insert the Active or Owner key</div>
     </div>
   `,
 })

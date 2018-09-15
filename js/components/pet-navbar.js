@@ -25,7 +25,7 @@ Vue.component('pet-navbar',{
   },
   methods: {
     search: function(){
-      history.pushState({index:'search'}, '', 'index.html?p='+this.inputAccount);
+      history.pushState({pet:'search'}, '', 'pet.html?p='+this.inputAccount);
       app.getUser();
     },
     autocomplete: _.debounce(function () {
@@ -46,7 +46,7 @@ Vue.component('pet-navbar',{
   template: `
     <div class="navbar">
       <input type="text" @keyup.enter="search" v-model="inputAccount" placeholder="Account">
-      <button @click="search" class="icon"><img src="images/round-search-24px.svg"></div>      
+      <button @click="search" class="icon"><img src="images/round-search-24px.svg"></button>      
     </div>
   `,  
 })

@@ -2,12 +2,19 @@
   box-sizing: border-box;
 }
 
+html {
+  min-height: 100%;
+  position: relative;
+}
+
 body
 {
   margin: 0;
+  margin-bottom: 5rem;
   padding: 0;
   font-size: 1.1rem;
   background-color: #f1f1f1;
+  font-family: Georgia;
 }
 
 button, input
@@ -24,6 +31,18 @@ button{
   background-image: linear-gradient(to bottom, #efaf3f, #e56b15);
   border: solid 1px #e35050;
   color: white;
+}
+
+footer{
+  background-color: #828282;
+  color: white;
+  width: 100%;
+  height: 5rem;
+  text-align: center;
+  margin: 0px;
+  padding: 20px;
+  position: absolute;
+  bottom: 0;
 }
 
 .icon{
@@ -62,12 +81,12 @@ button:active {
 }
 
 .container{
-  padding: 15px 15px;
+  padding: 25px 25px;
 }
 
 .row{
-  padding: 10px 8px;
-  margin: 5px 3px;
+  padding: 10px 15px;
+  margin: 5px 0px;
   display: block;
   width: 100%;
   text-align: center;
@@ -94,14 +113,38 @@ button:active {
 }
 
 .image{
-  height: 70vw;
-  width: 70vw;
   overflow: hidden;
   background-size: cover;
   background-position: center center;
+  padding: 7px;  
+}
+
+.pet{
+  height: 70vw;
+  width: 70vw;
   border-radius: 20%;
-  padding: 7px;
   margin: 15px auto;
+}
+
+.user{
+  height: 4rem;
+  width: 4rem;
+  border-radius: 50%;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+.user-label{
+  font-size: 1.5rem;
+  display: inline-block;
+  font-weight: bold;  
+}
+
+.user-container{
+  padding: 15px 0px;
+  background-image: linear-gradient(to bottom, #ffffff, #d8d8d8);
+  text-align:center;
 }
 
 .array-datainput{
@@ -114,6 +157,17 @@ button:active {
   margin: 15px auto;  
 }
 
+.info{
+  margin: 30px 5px 15px 15px;
+  text-align: left;
+}
+
+.info .title{
+  font-weight: bold;
+  font-size: 1.3rem;
+  margin-bottom: 5px;
+}
+
 .edit{
   margin: 15px 0px;
   text-align: right;
@@ -123,6 +177,36 @@ button:active {
   text-align: center;
   margin: 15px auto;
   width: 100%;
+}
+
+.vcenter{
+  height: 100%;
+  vertical-align: middle;
+  margin-top: 0.5rem;
+}
+
+.right{
+  text-align: right;
+  width: 100%;
+}
+
+.monospace{
+  font-family: monospace;
+}
+
+.text-huge{
+  font-size: 6rem;
+  margin-bottom: 15px; 
+}
+
+.text-big{
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+
+.text-small{
+  font-size: 0.9rem;
+  margin-bottom: 5px;
 }
 
 .fill-button{
@@ -137,11 +221,13 @@ button:active {
   margin: auto;
 }
 
-.qrcode{
-  margin: 20px auto;
-  width: 80%;
-  height: auto;
-  text-align: center;
+#qrcode{
+  width: 100%;
+  padding: 1.5rem;
+}
+
+#qrcode img{
+  max-width: 100%;
 }
 
 .alert-box{  
@@ -157,7 +243,32 @@ button:active {
 }
 
 .successful{
-  background-color: lightgreen;
+  background-color: #dff0d8;
+}
+
+.footnote{
+  font-size: 0.9rem;
+  text-align: left;
+  margin: 3px 10px;
+  display: block;
+}
+
+#qrtag{}
+
+.face{
+  background-image: linear-gradient(-45deg, #949494, #eaeaea);
+  border-radius: 50%;
+  width: 10rem;
+  height: 10rem;
+  padding: 1rem;
+  display: inline-block;
+  margin: 20px;
+  vertical-align: middle;
+}
+
+.face img{
+  width: 100%;
+  display: inline-block;
 }
 
 @media only screen and (min-width: 768px) {
@@ -166,9 +277,12 @@ button:active {
   }
   
   .image{
-    display: inline-block;
+    display: inline-block;    
+  }
+  
+  .pet{
     width: 20vw;
-    height: 20vw;
+    height: 20vw;    
     vertical-align: top;
     margin-right: 15px;
   }
