@@ -33,8 +33,8 @@ function setQuery(json) {
     .replace(/\{\"/gi, "")
     .replace(/\"\}/gi, "");
   history.pushState({
-    index: 'search'
-  }, '', 'index.html' + params);
+    pet: 'search'
+  }, '', 'pet.html' + params);
 }
 
 function saveFile(filename, text) {

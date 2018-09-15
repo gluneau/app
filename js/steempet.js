@@ -113,7 +113,9 @@ const app = new Vue({
           </div>
         </div>
       </div>
-      <footer>SteemPet by <a href="https://steemit.com/@jga">@jga</a></footer>
+      <footer>
+        <div class="vcenter">SteemPet by <a href="https://steemit.com/@jga">@jga</a></div>
+      </footer>
       </div>
     `,
   });

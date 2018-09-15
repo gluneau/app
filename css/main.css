@@ -10,7 +10,7 @@ html {
 body
 {
   margin: 0;
-  margin-bottom: 4rem;
+  margin-bottom: 5rem;
   padding: 0;
   font-size: 1.1rem;
   background-color: #f1f1f1;
@@ -37,6 +37,7 @@ footer{
   background-color: #828282;
   color: white;
   width: 100%;
+  height: 5rem;
   text-align: center;
   margin: 0px;
   padding: 20px;
@@ -178,6 +179,12 @@ button:active {
   width: 100%;
 }
 
+.vcenter{
+  height: 100%;
+  vertical-align: middle;
+  margin-top: 0.5rem;
+}
+
 .right{
   text-align: right;
   width: 100%;
@@ -195,6 +202,11 @@ button:active {
 .text-big{
   font-size: 2.5rem;
   margin-bottom: 15px;
+}
+
+.text-small{
+  font-size: 0.9rem;
+  margin-bottom: 5px;
 }
 
 .fill-button{
