@@ -14,11 +14,13 @@ Vue.component('pet-create',{
     return {
       pet: this.pet_init,
       key: this.key_init,
-      validWif: true, /************** MODIFY *********/
+      validWif: true, //TODO
     }  
   },  
   methods: {
     save: function () {
+      //Read data from all fields
+     
       this.key = this.$refs.data.$refs.edit_key.inputData;
       app.key = this.key;
       self = this;
@@ -39,6 +41,8 @@ Vue.component('pet-create',{
       json_metadata.pets[0] = this.pet;
 
       console.log(json_metadata);
+      
+      //Broadcast the new data to the steem blockchain
       steem.broadcast.accountUpdate(this.$refs.wif.inputWif,
         app.account.name,
         app.account.memo_key,

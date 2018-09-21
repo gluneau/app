@@ -1,4 +1,6 @@
-
+/** 
+ *  Vue instance
+ */
 const app = new Vue({
     el: '#app-steempet',
     data: {
@@ -38,16 +40,17 @@ const app = new Vue({
             } else {
               app.account = result[0];
               app.validAccount = true;
-              app.title = "ya respondieron de steem";
-              app.tit = true;
               var json_metadata = (app.account.json_metadata && app.account.json_metadata != '') ? JSON.parse(app.account.json_metadata) : {};
 
+              // Consult if there are pets in json_metadata
               if (json_metadata.pets && json_metadata.pets.length > 0) {
                 app.hasPet = true;
                 console.log('@' + app.account.name + " has pets");
                 if (query.key) {
                   app.hasKey = true;
                   app.key = query.key;
+                  
+                  // Decrypt sensitive data
                   try {
                     if (json_metadata.pets[0].private.email)
                       json_metadata.pets[0].private.email = CryptoJS.AES.decrypt(json_metadata.pets[0].private.email, query.key).toString(CryptoJS.enc.Utf8);
