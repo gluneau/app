@@ -3,6 +3,9 @@
 #### Website
 https://steempet.github.io/app/
 
+#### Steem post
+https://steemit.com/utopian-io/@jga/pet-qr-tags-powered-by-steem-1537504559183
+
 ### What are Pet QR tags?
 Pet QR tags consist of QR codes linked to a pet profile on the Steem Blockchain, in order to give an extra protection in the case of loss. The current work consists of a website to handle this tags.
 
