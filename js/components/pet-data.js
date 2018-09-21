@@ -87,6 +87,10 @@ Vue.component('pet-arraydatainput', {
       required: false,
       default: EMPTY_PET,        
     },
+    key_init:{
+      type: String,
+      required: false
+    }
   },
   data: function () {
     return {
@@ -107,6 +111,7 @@ Vue.component('pet-arraydatainput', {
         ],
       },
       pet: this.pet_init,
+      key: this.key_init,
     }    
   },
   computed: {
@@ -137,6 +142,11 @@ Vue.component('pet-arraydatainput', {
             :title="field[1]" :data="pet.private[field[0]]">
           </pet-datainput>
         </div>
+        <div class="info">
+          <div class="title">Password</div>
+          <div>Set the key to encrypt the private data.</div>
+        </div>
+        <pet-datainput ref="edit_key" title="Key" :data="key"></pet-datainput>
       </div>
     </div>  
   `, 
