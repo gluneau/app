@@ -12,6 +12,7 @@ const app = new Vue({
       editing: false,
       newPet: false,
       pet: EMPTY_PET,
+      key: '',
     },
     mounted: function () {
       steem.api.setOptions({
@@ -46,6 +47,7 @@ const app = new Vue({
                 console.log('@' + app.account.name + " has pets");
                 if (query.key) {
                   app.hasKey = true;
+                  app.key = query.key;
                   try {
                     if (json_metadata.pets[0].private.email)
                       json_metadata.pets[0].private.email = CryptoJS.AES.decrypt(json_metadata.pets[0].private.email, query.key).toString(CryptoJS.enc.Utf8);
@@ -64,6 +66,7 @@ const app = new Vue({
                 } else {
                   console.log("There is no key to decrypt the private data");
                   app.hasKey = false;
+                  app.key = steem.formatter.createSuggestedPassword().substring(0,10);
                 }
                 app.pet = json_metadata.pets[0];
                 app.editing = false;
@@ -92,7 +95,7 @@ const app = new Vue({
             <button @click="toggleEdit" class="icon"><img src="images/round-create-24px.svg"></button>
           </div>
           <div v-if="editing">
-            <pet-create :pet_init="this.pet"></pet-create>
+            <pet-create :pet_init="this.pet" :key_init="this.key"></pet-create>
           </div>
           <div v-else>
             <pet-arraydata :pet="this.pet"></pet-arraydata>                
@@ -109,7 +112,7 @@ const app = new Vue({
             <button @click="toggleNew" class="icon"><img src="images/round-add-24px.svg"></button>
           </div>
           <div v-if="newPet">
-            <pet-create :pet_init="this.pet"></pet-create>
+            <pet-create :pet_init="this.pet" :key_init="this.key"></pet-create>
           </div>
         </div>
       </div>
